@@ -39,4 +39,39 @@ public class SauceLoginTest {
     }
 
 
+    @Test
+    public void testLoginWithBlankCredentials(){
+        webDriver.findElement(By.id("user-name")).clear();
+        webDriver.findElement(By.id("password")).clear();
+        webDriver.findElement(By.id("login-button")).click();
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("h3[data-test='error']")).getText(), "Epic sadface: Username is required");
+    }
+
+    @Test
+    public void testLoginWithBlankUsername(){
+        webDriver.findElement(By.id("user-name")).clear();
+        webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
+        webDriver.findElement(By.id("login-button")).click();
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("h3[data-test='error']")).getText(), "Epic sadface: Username is required");
+    }
+
+
+    @Test
+    public void testLoginWithBlankPassword(){
+        webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
+        webDriver.findElement(By.id("password")).clear();
+        webDriver.findElement(By.id("login-button")).click();
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("h3[data-test='error']")).getText(), "Epic sadface: Password is required");
+    }
+
+     @Test
+    public void testLoginWithInvalidPassword(){
+        webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
+        webDriver.findElement(By.id("password")).sendKeys("Secret_sauce");
+        webDriver.findElement(By.id("login-button")).click();
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("h3[data-test='error']")).getText(),
+                "Epic sadface: Username and password do not match any user in this service");
+    }
+
+
 }
