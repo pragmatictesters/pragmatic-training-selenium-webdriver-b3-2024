@@ -17,7 +17,7 @@ public class HelloSeleniumTest {
         webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
         webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
         webDriver.findElement(By.id("login-button")).click();
-        Assert.assertEquals(webDriver.findElement(By.id("span.title")).getText(), "Products");
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("span.title")).getText(), "Products");
         webDriver.close();
 
 
