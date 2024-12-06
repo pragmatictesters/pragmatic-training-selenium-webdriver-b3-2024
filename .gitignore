@@ -1,38 +1,50 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
+# Ignore IntelliJ IDEA specific files
+.idea/
 *.iml
 *.ipr
+*.iws
+out/
 
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
-
-### Mac OS ###
+# MacOS specific files
 .DS_Store
+.DS_Store?
+
+# Log files
+*.log
+
+# Maven specific files
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Gradle specific files (if applicable)
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Java compiled files
+*.class
+
+# Temporary files
+*.swp
+*.tmp
+*.bak
+*.sublime-workspace
+*.sublime-project
+
+# Selenium-specific files
+screenshots/
+test-output/
+
+# IntelliJ and OS lock files
+*.lock
+
+# Node/npm files (if used for any tool dependencies)
+node_modules/
+
+# Other IDE-specific files
+.vscode/
+.idea_modules/
+
+# Ignore test reports
+*.report
+reports/
