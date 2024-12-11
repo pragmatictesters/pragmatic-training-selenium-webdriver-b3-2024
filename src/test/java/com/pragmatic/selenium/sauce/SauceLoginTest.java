@@ -10,8 +10,8 @@ import org.testng.annotations.Test;
 
 public class SauceLoginTest {
 
-    private final String  BASE_URL;
-    private  WebDriver webDriver;
+    private final String BASE_URL;
+    private WebDriver webDriver;
 
     public SauceLoginTest() {
         BASE_URL = "http://saucedemo.com";
@@ -19,20 +19,29 @@ public class SauceLoginTest {
 
 
     @BeforeMethod
-    public void beforeMethod(){
+    public void beforeMethod() {
         webDriver = new ChromeDriver();
+        webDriver.manage().window().maximize();
         webDriver.get(BASE_URL);
     }
 
 
     @AfterMethod
-    public void afterMethod(){
+    public void afterMethod() {
         webDriver.close();
     }
 
     @Test
-    public void testLoginWithValidCredentials(){
+    public void testLoginWithValidCredentials() {
         webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
+        webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
+        webDriver.findElement(By.id("login-button")).click();
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("span.title")).getText(), "Products");
+    }
+
+    @Test
+    public void testLoginWithPerformanceGlitchedCredentials() {
+        webDriver.findElement(By.id("user-name")).sendKeys("performance_glitch_user");
         webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
         webDriver.findElement(By.id("login-button")).click();
         Assert.assertEquals(webDriver.findElement(By.cssSelector("span.title")).getText(), "Products");
@@ -40,7 +49,7 @@ public class SauceLoginTest {
 
 
     @Test
-    public void testLoginWithBlankCredentials(){
+    public void testLoginWithBlankCredentials() {
         webDriver.findElement(By.id("user-name")).clear();
         webDriver.findElement(By.id("password")).clear();
         webDriver.findElement(By.id("login-button")).click();
@@ -48,7 +57,7 @@ public class SauceLoginTest {
     }
 
     @Test
-    public void testLoginWithBlankUsername(){
+    public void testLoginWithBlankUsername() {
         webDriver.findElement(By.id("user-name")).clear();
         webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
         webDriver.findElement(By.id("login-button")).click();
@@ -57,15 +66,15 @@ public class SauceLoginTest {
 
 
     @Test
-    public void testLoginWithBlankPassword(){
+    public void testLoginWithBlankPassword() {
         webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
         webDriver.findElement(By.id("password")).clear();
         webDriver.findElement(By.id("login-button")).click();
         Assert.assertEquals(webDriver.findElement(By.cssSelector("h3[data-test='error']")).getText(), "Epic sadface: Password is required");
     }
 
-     @Test
-    public void testLoginWithInvalidPassword(){
+    @Test
+    public void testLoginWithInvalidPassword() {
         webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
         webDriver.findElement(By.id("password")).sendKeys("Secret_sauce");
         webDriver.findElement(By.id("login-button")).click();
