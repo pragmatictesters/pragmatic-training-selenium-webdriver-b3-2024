@@ -25,13 +25,11 @@ public class DatePickerTest {
 
     @AfterMethod
     public void afterMethod(){
-
         webDriver.close();
-
     }
 
     @Test
-    public void testSelectActiveDate()  {
+    public void testSelectSpecificDateInCurrentDate()  {
         LocalDate currentDate = LocalDate.now();
         int currentDay = 14; // Fixed day of the current month
         String expectedDate = currentDate.withDayOfMonth(currentDay).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
@@ -41,6 +39,22 @@ public class DatePickerTest {
         webDriver.findElement(By.xpath("//td[@class='day' and text()='14']")).click();
         Assert.assertEquals(dateInput.getDomProperty("value"), expectedDate);
     }
+
+
+    @Test
+    public void testTypeSpecificDateInCurrentMonth()  {
+        LocalDate currentDate = LocalDate.now();
+        int currentDay = 14; // Fixed day of the current month
+        String expectedDate = currentDate.withDayOfMonth(currentDay).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+
+        WebElement dateInput = webDriver.findElement(By.name("my-date"));
+        dateInput.sendKeys(expectedDate);
+        Assert.assertEquals(dateInput.getDomProperty("value"), expectedDate);
+    }
+
+
+
+
 
 
 }
