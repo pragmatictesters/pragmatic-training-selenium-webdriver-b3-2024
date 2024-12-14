@@ -39,6 +39,28 @@ public class SauceLoginTest {
         Assert.assertEquals(webDriver.findElement(By.cssSelector("span.title")).getText(), "Products");
     }
 
+     @Test
+    public void testLoginWithValidCredentialsName() {
+        webDriver.findElement(By.name("user-name")).sendKeys("standard_user");
+        webDriver.findElement(By.name("password")).sendKeys("secret_sauce");
+        webDriver.findElement(By.name("login-button")).click();
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("span.title")).getText(), "Products");
+    }
+
+
+    @Test
+    public void testLoginWithValidCredentialsClassName() {
+        webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
+        webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
+        webDriver.findElement(By.className("submit-button")).click();
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("span.title")).getText(), "Products");
+    }
+
+
+
+
+
+
     @Test
     public void testLoginWithPerformanceGlitchedCredentials() {
         webDriver.findElement(By.id("user-name")).sendKeys("performance_glitch_user");
