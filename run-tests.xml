@@ -3,12 +3,58 @@
 <suite name="sauce-tests">
 
 
-    <test name="test1">
+    <test name="test1" enabled="false">
 
         <packages>
             <package name="com.pragmatic.selenium.sauce"/>
         </packages>
 
     </test>
+
+    <test name="Test2-Regression-Tests" enabled="false">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <exclude name="smoke"/>
+            </run>
+        </groups>
+
+        <packages>
+            <package name="com.pragmatic.selenium.examples.testng"/>
+        </packages>
+    </test>
+
+
+    <test name="run-test-classes" enabled="false">
+        <classes>
+            <class name="com.pragmatic.selenium.examples.testng.TestNGAnnotations"/>
+            <class name="com.pragmatic.selenium.examples.testng.TestPriority"/>
+        </classes>
+    </test>
+
+    <test name="run-test-classes" enabled="false">
+        <classes>
+            <class name="com.pragmatic.selenium.examples.testng.SampleTest">
+                <methods>
+                    <exclude name="testMethod1"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="run-test-classes" preserve-order="false">
+        <classes>
+            <class name="com.pragmatic.selenium.examples.testng.SampleTest">
+                <methods>
+                    <include name="testMethod1"/>
+                    <include name="testMethod2"/>
+                    <include name="testMethod3"/>
+                    <include name="testMethod4"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+
 
 </suite>
