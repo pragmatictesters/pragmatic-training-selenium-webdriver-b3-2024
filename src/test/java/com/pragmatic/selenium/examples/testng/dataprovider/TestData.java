@@ -1,4 +1,4 @@
-package com.pragmatic.selenium.examples;
+package com.pragmatic.selenium.examples.testng.dataprovider;
 
 import org.testng.annotations.DataProvider;
 
