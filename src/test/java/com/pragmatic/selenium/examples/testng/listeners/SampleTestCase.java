@@ -1,4 +1,4 @@
-package com.pragmatic.selenium.examples.listeners;
+package com.pragmatic.selenium.examples.testng.listeners;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
