@@ -1,4 +1,4 @@
-package com.pragmatic.selenium.examples;
+package com.pragmatic.selenium.examples.testng;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
