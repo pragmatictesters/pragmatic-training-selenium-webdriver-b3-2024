@@ -19,8 +19,6 @@ public class HelloSeleniumTest {
         webDriver.findElement(By.id("login-button")).click();
         Assert.assertEquals(webDriver.findElement(By.cssSelector("span.title")).getText(), "Products");
         webDriver.close();
-
-
     }
 
 }
