@@ -48,3 +48,4 @@ node_modules/
 # Ignore test reports
 *.report
 reports/
+/docs/TODO.txt
