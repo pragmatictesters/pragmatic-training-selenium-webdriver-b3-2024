@@ -35,4 +35,4 @@ jobs:
 
       # Step 4: Run Maven to execute TestNG tests
       - name: Run TestNG Tests
-        run: mvn clean test -Dsurefire.suiteXmlFiles=run-tests.xml
+        run: mvn clean test -Dsurefire.suiteXmlFiles=run-tests-temp.xml

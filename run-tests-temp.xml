@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="sauce-tests">
+
+
+
+    <test name="parameter-test-level">
+        <parameter name="browser" value="safari"/>
+        <classes>
+            <class name="com.pragmatic.selenium.examples.testng.ParametersTest"/>
+        </classes>
+    </test>
+
+
+
+</suite>
