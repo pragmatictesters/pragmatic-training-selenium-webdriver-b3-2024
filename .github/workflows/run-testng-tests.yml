@@ -1,0 +1,38 @@
+name: Run TestNG Tests
+
+on:
+  push:
+    branches:
+      - main   # Runs on push to the main branch
+  pull_request:
+    branches:
+      - main   # Runs on pull requests targeting the main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Java
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # Use Eclipse Temurin distribution
+          java-version: '17'      # Use Java 17 (modify if needed)
+
+      # Step 3: Cache Maven dependencies (optional for faster builds)
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2
+
+      # Step 4: Run Maven to execute TestNG tests
+      - name: Run TestNG Tests
+        run: mvn clean test -Dsurefire.suiteXmlFiles=run-tests.xml
