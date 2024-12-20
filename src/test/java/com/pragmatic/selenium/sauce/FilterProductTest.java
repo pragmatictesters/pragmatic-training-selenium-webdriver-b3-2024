@@ -1,4 +1,4 @@
-package com.pragmatic.selenium;
+package com.pragmatic.selenium.sauce;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
