@@ -57,10 +57,6 @@ public class SauceLoginTest {
     }
 
 
-
-
-
-
     @Test
     public void testLoginWithPerformanceGlitchedCredentials() {
         webDriver.findElement(By.id("user-name")).sendKeys("performance_glitch_user");
@@ -103,6 +99,5 @@ public class SauceLoginTest {
         Assert.assertEquals(webDriver.findElement(By.cssSelector("h3[data-test='error']")).getText(),
                 "Epic sadface: Username and password do not match any user in this service");
     }
-
 
 }
