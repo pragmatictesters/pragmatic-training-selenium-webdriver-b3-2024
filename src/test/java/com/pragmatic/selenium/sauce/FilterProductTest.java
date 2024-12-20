@@ -68,6 +68,46 @@ public class FilterProductTest {
         }
     }
 
+
+    @Test
+    public void testSortPriceLowToHigh() {
+        // Select "Price (low to high)" from the sorting dropdown
+        selectSortOption("lohi");
+
+        // Get all product prices
+        List<WebElement> priceElements = webDriver.findElements(By.cssSelector(".inventory_item_price"));
+        double previousPrice = 0.0;
+
+        // Compare the prices to ensure they are in low to high order
+        for (WebElement priceElement : priceElements) {
+            String priceText = priceElement.getText().replace("$", "").trim();
+            double currentPrice = Double.parseDouble(priceText);
+            Assert.assertTrue(currentPrice >= previousPrice,
+                    "Products are not sorted in ascending order (low to high). Current Price: " + currentPrice + " Previous Price: " + previousPrice);
+            previousPrice = currentPrice;
+        }
+    }
+
+    @Test
+    public void testSortPriceHighToLow() {
+
+        // Select "Price (high to low)" from the sorting dropdown
+        selectSortOption("hilo");
+
+        // Get all product prices
+        List<WebElement> priceElements = webDriver.findElements(By.cssSelector(".inventory_item_price"));
+        double previousPrice = Double.MAX_VALUE;
+
+        // Compare the prices to ensure they are in high to low order
+        for (WebElement priceElement : priceElements) {
+            String priceText = priceElement.getText().replace("$", "").trim();
+            double currentPrice = Double.parseDouble(priceText);
+            Assert.assertTrue(currentPrice <= previousPrice,
+                    "Products are not sorted in descending order (high to low). Current Price: " + currentPrice + " Previous Price: " + previousPrice);
+            previousPrice = currentPrice;
+        }
+    }
+
     private void login() {
         // Log in with valid credentials
         webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
