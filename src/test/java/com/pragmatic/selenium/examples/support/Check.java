@@ -3,12 +3,23 @@ package com.pragmatic.selenium.examples.support;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WrapsElement;
+import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 
 public class Check  implements WrapsElement , ICheck {
     private final WebElement checkbox;
 
     public Check(WebElement checkbox) {
-        this.checkbox = checkbox;
+
+        String tagName = checkbox.getTagName();
+        String typeAttribute = checkbox.getDomAttribute("type");
+
+        if (tagName != null && "input".equalsIgnoreCase(tagName)
+                && typeAttribute != null && "checkbox".equalsIgnoreCase(typeAttribute)) {
+            this.checkbox = checkbox;
+        } else {
+            throw new UnexpectedTagNameException("Expected <input type='checkbox'> but found <" + tagName + " type='" + checkbox.getDomAttribute("type") + "'>", tagName);
+        }
+
     }
 
     @Override
@@ -54,6 +65,6 @@ public class Check  implements WrapsElement , ICheck {
 
     @Override
     public void toggle() {
-
+        checkbox.click();
     }
 }
