@@ -3,6 +3,8 @@
 <suite name="sauce-tests">
 
 
+    <parameter name="browser" value="chrome"/>
+
     <test name="test1" enabled="false">
 
         <packages>
@@ -42,7 +44,7 @@
         </classes>
     </test>
 
-    <test name="run-test-classes" preserve-order="false">
+    <test name="run-test-classes" preserve-order="false" enabled="false">
         <classes>
             <class name="com.pragmatic.selenium.examples.testng.SampleTest">
                 <methods>
@@ -52,6 +54,32 @@
                     <include name="testMethod4"/>
                 </methods>
             </class>
+        </classes>
+    </test>
+
+    <test name="parameter-test-methods" enabled="false">
+        <classes>
+            <class name="com.pragmatic.selenium.examples.testng.ParametersTest">
+                <methods>
+                    <parameter name="browser" value="firefox"/>
+                    <include name="testMethod4"/>
+                </methods>
+
+            </class>
+        </classes>
+    </test>
+
+    <test name="parameter-test-suite" enabled="false">
+        <classes>
+            <class name="com.pragmatic.selenium.examples.testng.ParametersTest">
+            </class>
+        </classes>
+    </test>
+
+    <test name="parameter-test-level">
+        <parameter name="browser" value="safari"/>
+        <classes>
+            <class name="com.pragmatic.selenium.examples.testng.ParametersTest"/>
         </classes>
     </test>
 
