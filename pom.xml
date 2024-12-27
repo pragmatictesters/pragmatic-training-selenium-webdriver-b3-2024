@@ -38,6 +38,13 @@
             <version>2.4.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.mailosaur/mailosaur-java -->
+        <dependency>
+            <groupId>com.mailosaur</groupId>
+            <artifactId>mailosaur-java</artifactId>
+            <version>8.2.6</version>
+        </dependency>
+
 
     </dependencies>
 
