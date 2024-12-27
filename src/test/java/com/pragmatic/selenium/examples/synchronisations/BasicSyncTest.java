@@ -63,6 +63,29 @@ public class BasicSyncTest {
 
 
     @Test
+    public void testBasicSynWithExplicitWaitVisibilityAndEnabled() {
+
+        // Click on a collapsable element
+        webDriver.findElement(By.id("collapsable")).click();
+
+        // Create WebDriverWait instance
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+
+        // Wait until the 'aboutlink' element is both visible and enabled
+        wait.until(ExpectedConditions.and(
+                ExpectedConditions.visibilityOfElementLocated(By.id("aboutlink")),
+                ExpectedConditions.elementToBeClickable(By.id("aboutlink"))
+        ));
+
+        // Perform the click action once conditions are met
+        webDriver.findElement(By.id("aboutlink")).click();
+
+        // Add any assertions or additional actions if required
+
+    }
+
+
+    @Test
     public void testBasicSynWithFluentWait() {
         webDriver.findElement(By.id("collapsable")).click();
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10),Duration.ofMillis(100));
