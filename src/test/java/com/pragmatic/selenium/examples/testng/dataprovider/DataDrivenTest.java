@@ -35,14 +35,14 @@ public class DataDrivenTest {
     @DataProvider(name = "userCredentials")
     public static Object[][] userCredentials() {
         return new Object[][]{
-                {"","", "Epic sadface: Username is required"},
-                {"","secret_sauce", "Epic sadface: Username is required"},
-                {"standard_user","", "Epic sadface: Password is required"},
-                {"standard_user","invalidPWD", "Epic sadface: Username and password do not match any user in this service"},
+                {"", "", "Epic sadface: Username is required"},
+                {"", "secret_sauce", "Epic sadface: Username is required"},
+                {"standard_user", "", "Epic sadface: Password is required"},
+                {"standard_user", "invalidPWD", "Epic sadface: Username and password do not match any user in this service"},
         };
     }
 
-    @Test (dataProvider = "userCredentials")
+    @Test(dataProvider = "userCredentials")
     public void testLoginWithInvalidCredentials(String username, String password, String expectedError) {
         webDriver.findElement(By.id("user-name")).sendKeys(username);
         webDriver.findElement(By.id("password")).sendKeys(password);
@@ -51,7 +51,7 @@ public class DataDrivenTest {
 
     }
 
-    @Test (dataProvider = "userCredentials", dataProviderClass = TestData.class)
+    @Test(dataProvider = "userCredentials", dataProviderClass = TestData.class)
     public void testLoginWithInvalidCredentialsDataInClass(String username, String password, String expectedError) {
         webDriver.findElement(By.id("user-name")).sendKeys(username);
         webDriver.findElement(By.id("password")).sendKeys(password);
@@ -61,6 +61,14 @@ public class DataDrivenTest {
     }
 
 
+    @Test(dataProvider = "csvUserCredentials", dataProviderClass = TestData.class)
+    public void testLoginWithInvalidCredentialsDataInCSV(String username, String password, String expectedError) {
+        webDriver.findElement(By.id("user-name")).sendKeys(username);
+        webDriver.findElement(By.id("password")).sendKeys(password);
+        webDriver.findElement(By.id("login-button")).click();
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("h3[data-test='error']")).getText(), expectedError);
+
+    }
 
 
 }
