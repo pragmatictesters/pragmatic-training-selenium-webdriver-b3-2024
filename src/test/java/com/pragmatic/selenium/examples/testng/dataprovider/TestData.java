@@ -14,9 +14,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.lang.reflect.Type;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class TestData {
 
@@ -156,5 +159,41 @@ public class TestData {
         }
 
         return data;
+    }
+
+    // DataProvider to fetch test data from SQLite database
+    @DataProvider(name = "sqliteUserCredentials")
+    public Object[][] fetchFromDatabase() throws Exception {
+        // Path to SQLite database
+        String relativePath = "src/test/resources/testdata.db";
+        String absolutePath = new java.io.File(relativePath).getAbsolutePath();
+
+        // SQLite connection URL
+        String url = "jdbc:sqlite:" + absolutePath;
+
+        // SQL query to fetch data
+        String query = "SELECT username, password, expected_message FROM user_credentials";
+
+        // Connect to SQLite database
+        Connection connection = DriverManager.getConnection(url);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        // Store fetched data into a List
+        List<Object[]> data = new ArrayList<>();
+        while (resultSet.next()) {
+            String username = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            String expectedMessage = resultSet.getString("expected_message");
+            data.add(new Object[]{username, password, expectedMessage});
+        }
+
+        // Close connections
+        resultSet.close();
+        statement.close();
+        connection.close();
+
+        // Convert List<Object[]> to Object[][] for DataProvider
+        return data.toArray(new Object[0][0]);
     }
 }
