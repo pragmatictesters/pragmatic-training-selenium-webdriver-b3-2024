@@ -7,11 +7,16 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.annotations.DataProvider;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class TestData {
 
@@ -119,5 +124,37 @@ public class TestData {
 
         // Convert List<Object[]> to Object[][] for DataProvider
         return data.toArray(new Object[0][0]);
+    }
+
+
+    // DataProvider to read test data from XML file
+    @DataProvider(name = "xmlUserCredentials")
+    public Object[][] readFromXML() throws Exception {
+        // Path to the XML file
+        String relativePath = "src/test/java/com/pragmatic/selenium/examples/testng/dataprovider/testdata.xml";
+        String absolutePath = new File(relativePath).getAbsolutePath();
+
+        // Parse the XML file
+        File xmlFile = new File(absolutePath);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(xmlFile);
+        doc.getDocumentElement().normalize();
+
+        // Get all <testcase> elements
+        NodeList testCaseNodes = doc.getElementsByTagName("testcase");
+
+        // Prepare data for the DataProvider
+        Object[][] data = new Object[testCaseNodes.getLength()][3]; // 3 fields: username, password, expectedMessage
+
+        for (int i = 0; i < testCaseNodes.getLength(); i++) {
+            String username = testCaseNodes.item(i).getChildNodes().item(1).getTextContent();
+            String password = testCaseNodes.item(i).getChildNodes().item(3).getTextContent();
+            String expectedMessage = testCaseNodes.item(i).getChildNodes().item(5).getTextContent();
+
+            data[i] = new Object[]{username, password, expectedMessage};
+        }
+
+        return data;
     }
 }

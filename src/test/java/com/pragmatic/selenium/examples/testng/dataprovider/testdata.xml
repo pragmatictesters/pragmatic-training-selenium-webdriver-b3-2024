@@ -1,0 +1,22 @@
+<testdata>
+    <testcase>
+        <username></username>
+        <password></password>
+        <expectedMessage>Epic sadface: Username is required</expectedMessage>
+    </testcase>
+    <testcase>
+        <username></username>
+        <password>secret_sauce</password>
+        <expectedMessage>Epic sadface: Username is required</expectedMessage>
+    </testcase>
+    <testcase>
+        <username>standard_user</username>
+        <password></password>
+        <expectedMessage>Epic sadface: Password is required</expectedMessage>
+    </testcase>
+    <testcase>
+        <username>standard_user</username>
+        <password>invalidPWD</password>
+        <expectedMessage>Epic sadface: Username and password do not match any user in this service</expectedMessage>
+    </testcase>
+</testdata>
