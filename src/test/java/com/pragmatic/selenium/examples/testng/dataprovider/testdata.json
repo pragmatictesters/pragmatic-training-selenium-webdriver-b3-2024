@@ -1,0 +1,22 @@
+[
+  {
+    "username": "",
+    "password": "",
+    "expectedMessage": "Epic sadface: Username is required"
+  },
+  {
+    "username": "",
+    "password": "secret_sauce",
+    "expectedMessage": "Epic sadface: Username is required"
+  },
+  {
+    "username": "standard_user",
+    "password": "",
+    "expectedMessage": "Epic sadface: Password is required"
+  },
+  {
+    "username": "standard_user",
+    "password": "invalidPWD",
+    "expectedMessage": "Epic sadface: Username and password do not match any user in this service"
+  }
+]

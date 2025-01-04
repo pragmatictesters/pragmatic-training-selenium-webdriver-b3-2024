@@ -67,8 +67,17 @@ public class DataDrivenTest {
         webDriver.findElement(By.id("password")).sendKeys(password);
         webDriver.findElement(By.id("login-button")).click();
         Assert.assertEquals(webDriver.findElement(By.cssSelector("h3[data-test='error']")).getText(), expectedError);
-
     }
+
+    @Test(dataProvider = "jsonUserCredentials", dataProviderClass = TestData.class)
+    public void testLoginWithInvalidCredentialsDataInJson(String username, String password, String expectedError) {
+        webDriver.findElement(By.id("user-name")).sendKeys(username);
+        webDriver.findElement(By.id("password")).sendKeys(password);
+        webDriver.findElement(By.id("login-button")).click();
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("h3[data-test='error']")).getText(), expectedError);
+    }
+
+
 
 
 }
