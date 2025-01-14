@@ -31,13 +31,12 @@ public class SauceLoginTest {
         webDriver.close();
     }
 
-    @Test
+    @Test(description = "Verify user login with valid credentials")
     public void testLoginWithValidCredentials() {
         webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
         webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
         webDriver.findElement(By.id("login-button")).click();
         Assert.assertEquals(webDriver.findElement(By.cssSelector("span.title")).getText(), "Products");
-        Assert.fail("Forceful failure to check Jenkins results");
     }
 
      @Test
