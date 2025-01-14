@@ -37,6 +37,7 @@ public class SauceLoginTest {
         webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
         webDriver.findElement(By.id("login-button")).click();
         Assert.assertEquals(webDriver.findElement(By.cssSelector("span.title")).getText(), "Products");
+        Assert.fail("Forceful failure to check Jenkins results");
     }
 
      @Test
