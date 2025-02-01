@@ -4,12 +4,28 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
 
 public class FileUploadTest {
 
+    WebDriver webDriver;
+
+    @BeforeMethod
+    public void beforeMethod() {
+        webDriver = new ChromeDriver();
+        webDriver.get("https://the-internet.herokuapp.com/upload");
+    }
+
+    @AfterMethod
+    public void afterMethod() {
+        if (webDriver!=null){
+            webDriver.quit();
+        }
+    }
 
     @Test
     public void testFileUpload(){
