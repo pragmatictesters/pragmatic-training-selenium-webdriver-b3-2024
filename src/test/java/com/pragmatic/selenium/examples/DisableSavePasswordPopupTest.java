@@ -18,7 +18,16 @@ public class DisableSavePasswordPopupTest {
 
     @BeforeMethod
     public void beforeMethod() {
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        // Create a map to disable password saving and autofill
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("credentials_enable_service", false);  // Disable password manager
+        prefs.put("profile.password_manager_enabled", false); // Disable password manager popup
 
+        // Add preferences to ChromeOptions
+        options.setExperimentalOption("prefs", prefs);
+        webDriver = new ChromeDriver(options);
     }
 
     @AfterMethod
@@ -28,18 +37,6 @@ public class DisableSavePasswordPopupTest {
 
     @Test
     public void disableBrowserPopup (){
-        ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-
-        // Create a map to disable password saving and autofill
-        Map<String, Object> prefs = new HashMap<>();
-        prefs.put("credentials_enable_service", false);  // Disable password manager
-        prefs.put("profile.password_manager_enabled", false); // Disable password manager popup
-
-        // Add preferences to ChromeOptions
-        options.setExperimentalOption("prefs", prefs);
-
-        WebDriver webDriver = new ChromeDriver(options);
         webDriver.get("https://www.saucedemo.com/");
         webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
         webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
