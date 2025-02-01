@@ -9,16 +9,14 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <selenium-java.version>4.27.0</selenium-java.version>
         <testng.version>7.10.2</testng.version>
         <mailosaur-java.version>8.2.6</mailosaur-java.version>
         <datafaker.version>2.4.2</datafaker.version>
     </properties>
-
-
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -33,7 +31,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
@@ -42,6 +39,7 @@
             <artifactId>datafaker</artifactId>
             <version>${datafaker.version}</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/com.mailosaur/mailosaur-java -->
         <dependency>
@@ -69,7 +67,53 @@
             <version>3.47.2.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.24.3</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.24.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.20.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>7.20.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>7.20.1</version>
+
+        </dependency>
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>5.8.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.27.3</version>
+
+        </dependency>
+
     </dependencies>
+
    <build>
        <plugins>
            <plugin>
@@ -78,13 +122,34 @@
                <version>3.0.0-M5</version>
                <configuration>
                    <suiteXmlFiles>
-                       <suiteXmlFile>run-tests.xml</suiteXmlFile>
+                       <suiteXmlFile>run-cucumber-tests.xml</suiteXmlFile>
                    </suiteXmlFiles>
                </configuration>
            </plugin>
 
+           <plugin>
+               <groupId>net.masterthought</groupId>
+               <artifactId>maven-cucumber-reporting</artifactId>
+               <version>5.8.5</version>
+               <executions>
+                   <execution>
+                       <id>generate-cucumber-html-reports</id>
+                       <phase>verify</phase>
+                       <goals>
+                           <goal>generate</goal>
+                       </goals>
+                       <configuration>
+                           <jsonFiles>
+                               <param>target/cucumber.json</param>
+                           </jsonFiles>
+                           <outputDirectory>
+                               <param>target/cucumber-reports</param>
+                           </outputDirectory>
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin>
+
        </plugins>
    </build>
-
-
 </project>
