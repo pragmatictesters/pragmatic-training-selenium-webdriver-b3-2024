@@ -48,4 +48,6 @@ node_modules/
 # Ignore test reports
 *.report
 reports/
-/docs/TODO.txt
+/temp/TODO.txt
+/temp/
+/src/test/java/com/pragmatic/selenium/temp/
