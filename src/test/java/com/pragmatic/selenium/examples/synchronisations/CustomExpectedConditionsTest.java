@@ -3,7 +3,6 @@ package com.pragmatic.selenium.examples.synchronisations;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -28,7 +27,7 @@ public class CustomExpectedConditionsTest {
     }
 
     @Test
-    public void testBasicSynWithImplicitWait() {
+    public void testCustomExpectedConditions() {
 
         By collapsibleElement=  By.id("collapsable");
         webDriver.findElement(By.id("collapsable")).click();
@@ -42,27 +41,27 @@ public class CustomExpectedConditionsTest {
 
     }
 
-    private static class ElementHasExpandedFully implements ExpectedCondition<Boolean> {
-        private final By collapsibleElement;
-        private int lastHeight;
-
-
-        public ElementHasExpandedFully(By collapsibleElement) {
-            this.collapsibleElement = collapsibleElement;
-        }
-
-
-        @Override
-        public Boolean apply(WebDriver webDriver) {
-            int newHeight =webDriver.findElement(collapsibleElement).getSize().height;
-            System.out.printf("new height %d > %d%n", newHeight, lastHeight);
-            if (newHeight > lastHeight) {
-                lastHeight = newHeight;
-                return false;
-            } else {
-                return true;
-            }
-
-        }
-    }
+//    private static class ElementHasExpandedFully implements ExpectedCondition<Boolean> {
+//        private final By collapsibleElement;
+//        private int lastHeight;
+//
+//
+//        public ElementHasExpandedFully(By collapsibleElement) {
+//            this.collapsibleElement = collapsibleElement;
+//        }
+//
+//
+//        @Override
+//        public Boolean apply(WebDriver webDriver) {
+//            int newHeight =webDriver.findElement(collapsibleElement).getSize().height;
+//            System.out.printf("new height %d > %d%n", newHeight, lastHeight);
+//            if (newHeight > lastHeight) {
+//                lastHeight = newHeight;
+//                return false;
+//            } else {
+//                return true;
+//            }
+//
+//        }
+//    }
 }
