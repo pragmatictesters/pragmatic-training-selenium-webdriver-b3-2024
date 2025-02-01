@@ -9,6 +9,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.assertj.core.api.Assertions.*;
+
 public class SauceLoginTest {
 
     private WebDriver webDriver;
@@ -29,10 +31,19 @@ public class SauceLoginTest {
     @Test
     public void testLoginWithValidCredentials(){
         LoginPage loginPage = new LoginPage(webDriver);
-        loginPage.typeUsername("standard_user").typePassword("secret_sauce").clickLogin();
+        loginPage.typeUsername("standard_user")
+                .typePassword("secret_sauce")
+                .clickLogin();
         LandingPage landingPage = new LandingPage(webDriver);
         Assert.assertEquals(landingPage.getTitle(), "Products");
 
+        assertThat(landingPage.getTitle())
+                .as("Landing page tile is not correct")
+                .isEqualTo("Products")
+                .isNotBlank()
+                .contains("Pro")
+                .startsWith("Pr")
+                .endsWith("cts");
     }
 
 
