@@ -1,7 +1,9 @@
 package com.pragmatic.selenium.sauce;
 
+import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -29,6 +31,14 @@ public class SauceLoginTest {
     @AfterMethod
     public void afterMethod() {
         webDriver.close();
+    }
+
+
+    public String getProductPriceByIndex(WebDriver driver, int index) {
+        // Construct the dynamic XPath based on the provided index
+        String xpath = "(//div[@class='inventory_item_price'])[" + index + "]";
+        // Locate the element and return its text
+        return driver.findElement(By.xpath(xpath)).getText();
     }
 
     @Test(description = "Verify user login with valid credentials")
@@ -80,6 +90,22 @@ public class SauceLoginTest {
         webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
         webDriver.findElement(By.id("login-button")).click();
         Assert.assertEquals(webDriver.findElement(By.cssSelector("h3[data-test='error']")).getText(), "Epic sadface: Username is required");
+    }
+@Test
+    public void testLoginWithBlankUsernameWithAssertJ() {
+        webDriver.findElement(By.id("user-name")).clear();
+        webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
+        webDriver.findElement(By.id("login-button")).click();
+
+    // Assert that the error message is displayed and has correct text
+
+    WebElement errorMessageElement = webDriver.findElement(By.cssSelector("h3[data-test='error']"));
+    Assertions.assertThat(errorMessageElement)
+            .as("Error message element should be displayed")
+            .isNotNull()
+            .extracting(WebElement::getText)
+            .as("Error message text is incorrect")
+            .isEqualTo("Epic sadface: Username is required");
     }
 
 
