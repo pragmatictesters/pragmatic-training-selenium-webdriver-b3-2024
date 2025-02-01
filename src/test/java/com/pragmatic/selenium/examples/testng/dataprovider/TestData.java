@@ -24,7 +24,7 @@ import java.util.List;
 public class TestData {
 
 
-    @DataProvider
+    @DataProvider(name = "user-credentials")
     public Object[][] userCredentials() {
         return new Object[][]{
                 {"","", "Epic sadface: Username is required"},
