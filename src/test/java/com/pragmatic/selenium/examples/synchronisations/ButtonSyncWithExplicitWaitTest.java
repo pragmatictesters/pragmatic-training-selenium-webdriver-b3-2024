@@ -3,6 +3,7 @@ package com.pragmatic.selenium.examples.synchronisations;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -19,8 +20,12 @@ public class ButtonSyncWithExplicitWaitTest {
 
     @BeforeMethod
     public void setUp() {
-        webDriver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        webDriver = new ChromeDriver(options);
+        webDriver.manage().window().maximize();
         webDriver.get("https://eviltester.github.io/synchole/buttons.html");
+
     }
 
     @AfterMethod
@@ -30,19 +35,17 @@ public class ButtonSyncWithExplicitWaitTest {
 
     @Test
     public void testBasicSynWithImplicitWait() {
-
         waitAndClick(By.id("button00"));
         waitAndClick(By.id("button01"));
         waitAndClick(By.id("button02"));
         waitAndClick(By.id("button03"));
         Assert.assertEquals(webDriver.findElement(By.id("buttonmessage")).getText(), "All Buttons Clicked");
-
     }
 
     private void waitAndClick(By by) {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         wait.until(ExpectedConditions.elementToBeClickable(by));
         webDriver.findElement(by).click();
-
     }
 }

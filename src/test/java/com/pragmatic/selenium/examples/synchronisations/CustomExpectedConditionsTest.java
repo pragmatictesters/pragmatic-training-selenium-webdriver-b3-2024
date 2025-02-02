@@ -3,6 +3,7 @@ package com.pragmatic.selenium.examples.synchronisations;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,7 +19,6 @@ public class CustomExpectedConditionsTest {
     @BeforeMethod
     public void setUp() {
         webDriver = new ChromeDriver();
-        webDriver.get("https://eviltester.github.io/synchole/collapseable.html");
     }
 
     @AfterMethod
@@ -27,41 +27,33 @@ public class CustomExpectedConditionsTest {
     }
 
     @Test
-    public void testCustomExpectedConditions() {
+    public void testCustomExpectedConditionAllElementsHaveLoaded() {
+        webDriver.get("https://eviltester.github.io/synchole/messages.html");
+        By byMessageList=  By.cssSelector("#messageslist>li");
 
+        new WebDriverWait(webDriver,Duration.ofSeconds(10), Duration.ofMillis(500)).until(
+                ExpectedConditions.visibilityOfElementLocated(byMessageList)
+        );
+
+        new WebDriverWait(webDriver,Duration.ofSeconds(10), Duration.ofMillis(2000)).until(
+                new AllMessagesLoaded(byMessageList)
+        );
+        System.out.println("Total message count is " + webDriver.findElements(byMessageList).size());
+    }
+
+    @Test
+    public void testCustomExpectedConditionElementHasExpandedFully() {
+        webDriver.get("https://eviltester.github.io/synchole/collapseable.html");
         By collapsibleElement=  By.id("collapsable");
         webDriver.findElement(By.id("collapsable")).click();
-
 
         new WebDriverWait(webDriver,Duration.ofSeconds(10), Duration.ofMillis(20)).until(
                 new ElementHasExpandedFully(collapsibleElement)
         );
-
         webDriver.findElement(By.id("aboutlink")).click();
-
     }
 
-//    private static class ElementHasExpandedFully implements ExpectedCondition<Boolean> {
-//        private final By collapsibleElement;
-//        private int lastHeight;
-//
-//
-//        public ElementHasExpandedFully(By collapsibleElement) {
-//            this.collapsibleElement = collapsibleElement;
-//        }
-//
-//
-//        @Override
-//        public Boolean apply(WebDriver webDriver) {
-//            int newHeight =webDriver.findElement(collapsibleElement).getSize().height;
-//            System.out.printf("new height %d > %d%n", newHeight, lastHeight);
-//            if (newHeight > lastHeight) {
-//                lastHeight = newHeight;
-//                return false;
-//            } else {
-//                return true;
-//            }
-//
-//        }
-//    }
+
+
+
 }
