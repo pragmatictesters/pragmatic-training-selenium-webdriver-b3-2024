@@ -36,14 +36,6 @@ public class SauceLoginTest {
                 .clickLogin();
         LandingPage landingPage = new LandingPage(webDriver);
         Assert.assertEquals(landingPage.getTitle(), "Products");
-
-        assertThat(landingPage.getTitle())
-                .as("Landing page tile is not correct")
-                .isEqualTo("Products")
-                .isNotBlank()
-                .contains("Pro")
-                .startsWith("Pr")
-                .endsWith("cts");
     }
 
 
