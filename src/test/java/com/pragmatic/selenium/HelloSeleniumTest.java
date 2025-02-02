@@ -23,7 +23,11 @@ public class HelloSeleniumTest {
             WebDriver webDriver = new ChromeDriver();
             webDriver.get("https://www.saucedemo.com");
             logger.debug("Start typing the username standard_user");
-            webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
+//            webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
+
+            webDriver.findElement(By.xpath("//*[@id='user-name1'] | //*[@name='user-name']")).sendKeys("standard_user");
+
+
             logger.debug("Start typing the password secret_sauce");
             webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
             webDriver.findElement(By.id("login-button")).click();
