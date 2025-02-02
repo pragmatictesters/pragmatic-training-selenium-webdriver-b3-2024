@@ -15,8 +15,6 @@ public class DragAndDropTest {
     public void testDragAndDrop(){
         WebDriver webDriver = new ChromeDriver();
         webDriver.get("https://the-internet.herokuapp.com/drag_and_drop");
-        Actions actions = new Actions(webDriver);
-
 
         WebElement sourceElement = webDriver.findElement(By.id("column-a"));
         WebElement targetElement = webDriver.findElement(By.id("column-b"));
@@ -24,8 +22,10 @@ public class DragAndDropTest {
         Assert.assertEquals(sourceElement.getText(), "A");
         Assert.assertEquals(targetElement.getText(), "B");
 
-        actions.dragAndDrop(sourceElement, targetElement);
-        actions.build().perform();
+        Actions actions = new Actions(webDriver);
+
+        actions.dragAndDrop(sourceElement, targetElement)
+                .perform();
 
         Assert.assertEquals(sourceElement.getText(), "B");
         Assert.assertEquals(targetElement.getText(), "A");
