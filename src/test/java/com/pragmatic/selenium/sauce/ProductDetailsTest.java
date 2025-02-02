@@ -22,6 +22,7 @@ public class ProductDetailsTest {
             webDriver = new ChromeDriver();
             webDriver.manage().window().maximize();
             webDriver.get("https://www.saucedemo.com/");
+            loginWithValidCredentials();
         }
 
         @AfterMethod
@@ -33,14 +34,7 @@ public class ProductDetailsTest {
 
         @Test
         public void testPriceDescriptionAndImage() {
-            // Log in to the application
-            webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
-            webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
-            webDriver.findElement(By.id("login-button")).click();
-            Assert.assertEquals(webDriver.findElement(By.cssSelector("span[data-test='title']")).getText(),
-                    "Products");
-
-            // Find the Sauce Labs Fleece Jacket and click on its name
+             // Find the Sauce Labs Fleece Jacket and click on its name
             webDriver.findElement(By.xpath("//*[text()='Sauce Labs Fleece Jacket']")).click();
 
             // Verify the product description
@@ -62,12 +56,9 @@ public class ProductDetailsTest {
         }
 
 
+
     @Test
     public void testCheckProductName() {
-        webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
-        webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
-        webDriver.findElement(By.id("login-button")).click();
-
         List<WebElement> eleProductNames = webDriver.findElements(By.cssSelector("div.inventory_item_name"));
         // Create an ArrayList to store product names
         ArrayList<String> productNamesList = new ArrayList<>();
@@ -128,10 +119,6 @@ public class ProductDetailsTest {
 
     @Test
     public void testCheckProductNameWithAssertJ() {
-        webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
-        webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
-        webDriver.findElement(By.id("login-button")).click();
-
         List<WebElement> eleProductNames = webDriver.findElements(By.cssSelector("div.inventory_item_name"));
 
         // Extract product names into a List
@@ -182,4 +169,11 @@ public class ProductDetailsTest {
         // Print for verification
         System.out.println(productNamesList);
     }
+
+    private void loginWithValidCredentials() {
+        webDriver.findElement(By.id("user-name")).sendKeys("standard_user");
+        webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
+        webDriver.findElement(By.id("login-button")).click();
+    }
+
 }
