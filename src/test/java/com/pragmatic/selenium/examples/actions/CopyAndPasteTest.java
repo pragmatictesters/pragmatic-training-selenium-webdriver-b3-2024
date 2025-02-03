@@ -1,4 +1,4 @@
-package com.pragmatic.selenium.examples;
+package com.pragmatic.selenium.examples.actions;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
