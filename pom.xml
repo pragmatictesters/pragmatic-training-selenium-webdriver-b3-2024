@@ -136,7 +136,7 @@
                <version>3.0.0-M9</version> <!-- Updated to latest version -->
                <configuration>
                    <suiteXmlFiles>
-                       <suiteXmlFile>${project.basedir}/run-cucumber-tests.xml</suiteXmlFile>
+                       <suiteXmlFile>src/test/resources/run-cucumber-tests.xml</suiteXmlFile>
                    </suiteXmlFiles>
                </configuration>
            </plugin>

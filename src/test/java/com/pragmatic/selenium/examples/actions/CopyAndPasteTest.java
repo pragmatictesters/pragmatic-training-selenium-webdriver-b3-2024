@@ -29,8 +29,6 @@ public class CopyAndPasteTest {
                 .keyUp(cmdCtrl)
                 .perform();
 
-
-
         Assert.assertEquals( textField.getDomProperty("value"), "SeleniumSelenium!");
     }
 }
