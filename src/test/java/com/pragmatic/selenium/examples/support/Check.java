@@ -17,9 +17,9 @@ public class Check  implements WrapsElement , ICheck {
                 && typeAttribute != null && "checkbox".equalsIgnoreCase(typeAttribute)) {
             this.checkbox = checkbox;
         } else {
-            throw new UnexpectedTagNameException("Expected <input type='checkbox'> but found <" + tagName + " type='" + checkbox.getDomAttribute("type") + "'>", tagName);
+            throw new UnexpectedTagNameException("Expected <input type='checkbox'> but found <" + tagName + " type='"
+                    + checkbox.getDomAttribute("type") + "'>", tagName);
         }
-
     }
 
     @Override
