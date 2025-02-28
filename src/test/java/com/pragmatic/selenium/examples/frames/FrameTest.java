@@ -1,4 +1,4 @@
-package com.pragmatic.selenium.examples;
+package com.pragmatic.selenium.examples.frames;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
